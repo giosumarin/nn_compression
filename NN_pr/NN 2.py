@@ -50,13 +50,8 @@ class NN:
             self.v.append([0, 0])
         Wo = np.random.randn(neurons[-1], N_CLASSES) * math.sqrt(2.0 / self.numEx)
         bWo = np.random.randn(1, N_CLASSES) * math.sqrt(2.0 / self.numEx)
-        self.act_fun.append(lambda x, der: af.sigmoid(x, der))
         self.layers.append([Wo, bWo])
         self.v.append([0, 0])
-    
-    def set_output_id_fun(self):
-        self.act_fun[-1] = (lambda x, der: af.id(x, der))
-        
 
     def predict(self, X):
         outputs = []
@@ -65,7 +60,7 @@ class NN:
             H = self.act_fun[i](np.dot(inputLayer, self.layers[i][0]) + self.layers[i][1], False)
             outputs.append(H)
             inputLayer = H
-        outputs.append(self.act_fun[-1]((np.dot(H, self.layers[-1][0]) + self.layers[-1][1]), False))
+        outputs.append(af.sigmoid((np.dot(H, self.layers[-1][0])) + self.layers[-1][1]))
         return outputs
 
     def predictHotClass(self, X):
@@ -100,7 +95,7 @@ class NN:
 
             y = outputs[-1]
             deltas = []
-            deltas.append(self.act_fun[-1](y, True) * (y - t[indexLow:indexHigh]))
+            deltas.append(y * (1 - y) * (y - t[indexLow:indexHigh]))
 
             for i in range(self.nHidden):
                 deltas.append(

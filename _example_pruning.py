@@ -30,6 +30,7 @@ ft.close()
 tr = []
 te=[]
 s=[]
+
 normal_upd = NN.NN.update_layers
 for n in [[20],[50]]:
     nn = NN.NN(training=TRAINING, testing=TESTING, lr=0.003, mu=.99, minibatch=100)
