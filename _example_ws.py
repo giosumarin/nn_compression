@@ -33,12 +33,12 @@ s=[]
 
 normal_upd = NN.NN.update_layers
 for n in [[200,100]]:
-    nn = NN.NN(training=TRAINING, testing=TESTING, lr=0.003, mu=.99, minibatch=100, dropout=0.75)
+    nn = NN.NN(training=TRAINING, testing=TESTING, lr=0.003, mu=.99, minibatch=100)
     NN.NN.update_layers = normal_upd
     nn.addLayers(n, ['relu', 'relu'])
     nn.train(num_epochs=150)
     w = (nn.getWeigth())
-    for c in [250,300]:
+    for c in [[150,100,50],[200,150,100],[250,200,150]]:
         print("cluster="+str(c))
         w1=np.copy(w)
         nn.layers_shape, nn.centers, nn.idx_layers, nn.v, nn.epoch, nn.cluster = ws.set_ws(c, w1)

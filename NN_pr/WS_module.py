@@ -34,9 +34,15 @@ def set_ws(cluster, weights):
     centers = []
     idx_layers = []
     v = []
+    if isinstance(cluster, int):
+        cluster_list =[]
+        for _ in range(len(weights)): 
+            cluster_list.append(cluster)
+        cluster = cluster_list
+
     for i in range(len(weights)):
         layers_shape.append(weights[i][0].shape)
-        centers.append(build_clusters(cluster, weights[i][0]))
+        centers.append(build_clusters(cluster[i], weights[i][0]))
         idx_layers.append([redefine_weights(weights[i][0],centers[i]), weights[i][1]])  
         v.append([0,0]) 
     return layers_shape, centers, idx_layers, v, 0, cluster    
@@ -48,9 +54,9 @@ def set_ws(cluster, weights):
 def ws_update_layers(self, deltasUpd, momentumUpdate):
     v_temp = []
     for i in range(self.nHidden + 1):
-        cg = centroid_gradient_matrix(self.idx_layers[i][0],deltasUpd[i][0],self.cluster)  
+        cg = centroid_gradient_matrix(self.idx_layers[i][0],deltasUpd[i][0],self.cluster[i])  
             
-        self.centers[i] += np.array(cg).reshape(self.cluster,1)
+        self.centers[i] += np.array(cg).reshape(self.cluster[i],1)
 
         self.layers[i][1] += deltasUpd[i][1] + momentumUpdate * self.v[i][1]
         v_temp.append([cg, deltasUpd[i][1]])
