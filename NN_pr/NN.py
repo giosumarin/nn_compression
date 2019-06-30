@@ -8,7 +8,7 @@ N_CLASSES = 10
 
 
 class NN:
-    def __init__(self, training, testing, lr, mu, minibatch, dropout=None, disableLog=None, pruning=None, weights=None):
+    def __init__(self, training, testing, lr, mu, minibatch, dropout=None, disableLog=None, weights=None):
         self.training = training
         self.testing = testing
         self.numEx = len(self.training[0])
@@ -18,14 +18,20 @@ class NN:
         self.minibatch = minibatch
         self.p = dropout
         self.disableLog = disableLog
-        self.pruning = pruning
         self.layers = weights
 
         self.target_train = self.training[1]
         self.target_test = self.testing[1]
         self.mask = 0
         self.epoch = 0
+        
+        self.layers_shape = []
+        self.centers = []
+        self.idx_layers = []  
+        self.cluster=0      
 
+        
+        
         self.targetForUpd = np.zeros((self.numEx, N_CLASSES), dtype=int)
         for i in range(self.numEx):
             self.targetForUpd[i, training[1][i]] = 1
@@ -90,7 +96,6 @@ class NN:
         for nb in range(numBatch):
             indexLow = nb * self.minibatch
             indexHigh = (nb + 1) * self.minibatch
-            outputs = []
 
             outputs = self.predict(X[indexLow:indexHigh])
             if self.p != None:
@@ -115,12 +120,12 @@ class NN:
 
             self.update_layers(deltasUpd, momentumUpdate)
 
-            self.v = deltasUpd
             
     def update_layers(self, deltasUpd, momentumUpdate):
         for i in range(self.nHidden + 1):
                 self.layers[i][0] += deltasUpd[i][0] + momentumUpdate * self.v[i][0] 
                 self.layers[i][1] += deltasUpd[i][1] + momentumUpdate * self.v[i][1]
+        self.v = deltasUpd
 
     def train(self, num_epochs):
         train = self.training[0]

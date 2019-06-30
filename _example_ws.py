@@ -5,7 +5,7 @@ import numpy as np
 import sys
 
 from NN_pr import NN
-from NN_pr import pruning_module as pr
+from NN_pr import WS_module as ws
 
 
 
@@ -32,18 +32,19 @@ te=[]
 s=[]
 
 normal_upd = NN.NN.update_layers
-for n in [[20,10]]:
+for n in [[200,100]]:
     nn = NN.NN(training=TRAINING, testing=TESTING, lr=0.003, mu=.99, minibatch=100, dropout=0.75)
     NN.NN.update_layers = normal_upd
     nn.addLayers(n, ['relu', 'relu'])
-    a,b=nn.train(num_epochs=50)
+    nn.train(num_epochs=150)
     w = (nn.getWeigth())
-    for p in [10,20,30,40]:
-        print("Pruning="+str(p)+"%")
+    for c in [250,300]:
+        print("cluster="+str(c))
         w1=np.copy(w)
-        nn.layers, nn.mask, nn.v, nn.epoch = pr.set_pruned_layers(p, w1)
-        NN.NN.update_layers = pr.mask_update_layers
-        a,b=nn.train(num_epochs=10)
+        nn.layers_shape, nn.centers, nn.idx_layers, nn.v, nn.epoch, nn.cluster = ws.set_ws(c, w1)
+        NN.NN.update_layers = ws.ws_update_layers
+        NN.NN.updateMomentum = ws.ws_updateMomentum
+        nn.train(num_epochs=50)
 
 '''
 print("train: "+str(tr))

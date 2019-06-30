@@ -25,3 +25,4 @@ def mask_update_layers(self, deltasUpd, momentumUpdate):
     for i in range(self.nHidden + 1):
         self.layers[i][0] += (deltasUpd[i][0] + momentumUpdate * self.v[i][0]) * self.mask[i]
         self.layers[i][1] += deltasUpd[i][1] + momentumUpdate * self.v[i][1]
+    self.v = deltasUpd

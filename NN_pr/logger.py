@@ -4,7 +4,7 @@ logNN = logging.getLogger('NN')
 logNN.propagate = False
 logNN.setLevel(logging.DEBUG)
 
-fh1 = logging.FileHandler('/home/giosumarin/Scrivania/NN_pr/NN_pr/log/nnModelSelection1.log')
+fh1 = logging.FileHandler('/home/giosumarin/Scrivania/NN_pr/NN_pr/log/test_ws.log')
 fh1.setLevel(logging.DEBUG)
 
 ch1 = logging.StreamHandler()

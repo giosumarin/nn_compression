@@ -2501,3 +2501,58 @@
 2019-06-28 12:08:23,141 - INFO - Train acc - epoch: 10:  97.528
 2019-06-28 12:08:23,203 - INFO - Test acc - epoch:96.77
 2019-06-28 12:08:23,204 - DEBUG - ---------------------------------------------------------------------
+2019-06-28 15:14:09,150 - INFO - neurons= [100, 64]
+2019-06-28 15:14:09,202 - INFO - learning rate=0.003 momentum update=0.99 minibatch=100
+2019-06-28 15:14:10,042 - DEBUG - Accuracy - epoch 0:  Train=[0.1623743]- Test=[0.1643958]
+2019-06-28 15:14:10,438 - DEBUG - Accuracy - epoch 5:  Train=[0.16830227]- Test=[0.16409238]
+2019-06-28 15:14:10,833 - DEBUG - Accuracy - epoch 10:  Train=[0.19444807]- Test=[0.19017735]
+2019-06-28 15:14:11,225 - DEBUG - Accuracy - epoch 15:  Train=[0.16597957]- Test=[0.16269362]
+2019-06-28 15:14:11,615 - DEBUG - Accuracy - epoch 20:  Train=[0.14590069]- Test=[0.14304278]
+2019-06-28 15:14:12,059 - DEBUG - Accuracy - epoch 25:  Train=[0.13124569]- Test=[0.12863418]
+2019-06-28 15:14:12,450 - DEBUG - Accuracy - epoch 30:  Train=[0.11264974]- Test=[0.11026523]
+2019-06-28 15:14:12,841 - DEBUG - Accuracy - epoch 35:  Train=[0.09838695]- Test=[0.09589591]
+2019-06-28 15:14:13,230 - DEBUG - Accuracy - epoch 40:  Train=[0.08936737]- Test=[0.08694348]
+2019-06-28 15:14:13,640 - DEBUG - Accuracy - epoch 45:  Train=[0.08204389]- Test=[0.08014252]
+2019-06-28 15:14:14,049 - DEBUG - Accuracy - epoch 50:  Train=[0.07623334]- Test=[0.07451892]
+2019-06-28 15:14:14,466 - DEBUG - Accuracy - epoch 55:  Train=[0.07264539]- Test=[0.07131703]
+2019-06-28 15:14:14,884 - DEBUG - Accuracy - epoch 60:  Train=[0.07053333]- Test=[0.06963464]
+2019-06-28 15:14:15,320 - DEBUG - Accuracy - epoch 65:  Train=[0.06901343]- Test=[0.06827542]
+2019-06-28 15:14:15,757 - DEBUG - Accuracy - epoch 70:  Train=[0.06802112]- Test=[0.06739839]
+2019-06-28 15:14:16,151 - DEBUG - Accuracy - epoch 75:  Train=[0.06701259]- Test=[0.06649245]
+2019-06-28 15:14:16,545 - DEBUG - Accuracy - epoch 80:  Train=[0.065755]- Test=[0.06531913]
+2019-06-28 15:14:16,937 - DEBUG - Accuracy - epoch 85:  Train=[0.06432065]- Test=[0.06390736]
+2019-06-28 15:14:17,329 - DEBUG - Accuracy - epoch 90:  Train=[0.06358897]- Test=[0.06332532]
+2019-06-28 15:14:17,720 - DEBUG - Accuracy - epoch 95:  Train=[0.0633391]- Test=[0.06319282]
+2019-06-28 15:14:18,033 - INFO - Train acc - epoch: 100:  [0.06288219]
+2019-06-28 15:14:18,040 - INFO - Test acc - epoch:[0.06275546]
+2019-06-28 15:14:18,040 - DEBUG - ---------------------------------------------------------------------
+2019-06-28 15:14:29,113 - INFO - neurons= [100, 64]
+2019-06-28 15:14:29,114 - INFO - learning rate=0.003 momentum update=0.99 minibatch=100
+2019-06-28 15:14:29,264 - DEBUG - Accuracy - epoch 0:  Train=[0.18265793]- Test=[0.17702353]
+2019-06-28 15:14:29,660 - DEBUG - Accuracy - epoch 5:  Train=[0.15253163]- Test=[0.14852002]
+2019-06-28 15:14:30,053 - DEBUG - Accuracy - epoch 10:  Train=[0.21378395]- Test=[0.20942687]
+2019-06-28 15:14:30,444 - DEBUG - Accuracy - epoch 15:  Train=[0.17091256]- Test=[0.16749298]
+2019-06-28 15:14:30,835 - DEBUG - Accuracy - epoch 20:  Train=[0.15772351]- Test=[0.15477945]
+2019-06-28 15:14:31,223 - DEBUG - Accuracy - epoch 25:  Train=[0.13787471]- Test=[0.13534427]
+2019-06-28 15:14:31,644 - DEBUG - Accuracy - epoch 30:  Train=[0.11487298]- Test=[0.11252722]
+2019-06-28 15:14:32,035 - DEBUG - Accuracy - epoch 35:  Train=[0.09220775]- Test=[0.09011181]
+2019-06-28 15:14:32,429 - DEBUG - Accuracy - epoch 40:  Train=[0.08985626]- Test=[0.08798041]
+2019-06-28 15:14:32,820 - DEBUG - Accuracy - epoch 45:  Train=[0.0814872]- Test=[0.07981285]
+2019-06-28 15:14:33,248 - DEBUG - Accuracy - epoch 50:  Train=[0.07506681]- Test=[0.07368962]
+2019-06-28 15:14:33,642 - DEBUG - Accuracy - epoch 55:  Train=[0.07179396]- Test=[0.07062638]
+2019-06-28 15:14:34,063 - DEBUG - Accuracy - epoch 60:  Train=[0.07071829]- Test=[0.06981093]
+2019-06-28 15:14:34,484 - DEBUG - Accuracy - epoch 65:  Train=[0.06844502]- Test=[0.06761502]
+2019-06-28 15:14:34,887 - DEBUG - Accuracy - epoch 70:  Train=[0.06634323]- Test=[0.06575916]
+2019-06-28 15:14:35,284 - DEBUG - Accuracy - epoch 75:  Train=[0.06539394]- Test=[0.06507481]
+2019-06-28 15:14:35,675 - DEBUG - Accuracy - epoch 80:  Train=[0.06479639]- Test=[0.06465327]
+2019-06-28 15:14:36,065 - DEBUG - Accuracy - epoch 85:  Train=[0.06422684]- Test=[0.06406731]
+2019-06-28 15:14:36,457 - DEBUG - Accuracy - epoch 90:  Train=[0.06435965]- Test=[0.06401534]
+2019-06-28 15:14:36,859 - DEBUG - Accuracy - epoch 95:  Train=[0.06329431]- Test=[0.06292726]
+2019-06-28 15:14:37,170 - INFO - Train acc - epoch: 100:  [0.06243367]
+2019-06-28 15:14:37,177 - INFO - Test acc - epoch:[0.06216242]
+2019-06-28 15:14:37,177 - DEBUG - ---------------------------------------------------------------------
+2019-06-28 15:44:00,177 - INFO - neurons= [300, 200, 100]
+2019-06-28 15:44:08,919 - INFO - learning rate=0.003 momentum update=0.99 minibatch=100
+2019-06-28 15:44:16,993 - DEBUG - Accuracy - epoch 0:  Train=10.442- Test=10.28
+2019-06-28 15:44:39,426 - DEBUG - Accuracy - epoch 5:  Train=32.693- Test=32.76
+2019-06-28 15:45:01,927 - DEBUG - Accuracy - epoch 10:  Train=95.857- Test=95.38
