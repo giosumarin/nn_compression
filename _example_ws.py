@@ -30,21 +30,59 @@ ft.close()
 tr = []
 te=[]
 s=[]
-
+print("------------------------no dropout----------------------") 
 normal_upd = NN.NN.update_layers
-for n in [[200,100]]:
+normal_mom = NN.NN.updateMomentum
+for n in [[300,100]]: #28*28*300=235200  300*100=3000 100*10=1000
     nn = NN.NN(training=TRAINING, testing=TESTING, lr=0.003, mu=.99, minibatch=100)
     NN.NN.update_layers = normal_upd
     nn.addLayers(n, ['relu', 'relu'])
-    nn.train(num_epochs=150)
+    #nn.train(stop_function=1)#, num_epochs=2)
+    nn.train(stop_function=0, num_epochs=120)
     w = (nn.getWeigth())
-    for c in [[150,100,50],[200,150,100],[250,200,150]]:
+    for c in [[2352, 30, 10], [1000,150,100],150,[500,200,150],300]:
         print("cluster="+str(c))
         w1=np.copy(w)
         nn.layers_shape, nn.centers, nn.idx_layers, nn.v, nn.epoch, nn.cluster = ws.set_ws(c, w1)
         NN.NN.update_layers = ws.ws_update_layers
         NN.NN.updateMomentum = ws.ws_updateMomentum
-        nn.train(num_epochs=50)
+        #nn.train(stop_function=1)
+        nn.train(stop_function=0, num_epochs=60)
+print("------------------------dropout=0.75----------------------")        
+for n in [[300,100]]: #28*28*300=235200  300*100=3000 100*10=1000
+    nn = NN.NN(training=TRAINING, testing=TESTING, lr=0.003, mu=.99, minibatch=100, dropout=0.75)
+    NN.NN.update_layers = normal_upd
+    NN.NN.updateMomentum = normal_mom
+    nn.addLayers(n, ['relu', 'relu'])
+    #nn.train(stop_function=1)
+    nn.train(stop_function=0, num_epochs=120)
+    w = (nn.getWeigth())
+    for c in [[2352, 30, 10], [1000,150,100],150,[500,200,150],300]:
+        print("cluster="+str(c))
+        w1=np.copy(w)
+        nn.layers_shape, nn.centers, nn.idx_layers, nn.v, nn.epoch, nn.cluster = ws.set_ws(c, w1)
+        NN.NN.update_layers = ws.ws_update_layers
+        NN.NN.updateMomentum = ws.ws_updateMomentum
+        #nn.train(stop_function=1)
+        nn.train(stop_function=0, num_epochs=60)
+        
+print("------------------------dropout=0.5----------------------")      
+for n in [[300,100]]: #28*28*300=235200  300*100=3000 100*10=1000
+    nn = NN.NN(training=TRAINING, testing=TESTING, lr=0.003, mu=.99, minibatch=100, dropout=0.5)
+    NN.NN.update_layers = normal_upd
+    NN.NN.updateMomentum = normal_mom
+    nn.addLayers(n, ['relu', 'relu'])
+    #nn.train(stop_function=1)
+    nn.train(stop_function=0, num_epochs=120)
+    w = (nn.getWeigth())
+    for c in [[2352, 30, 10], [1000,150,100],150,[500,200,150],300]:
+        print("cluster="+str(c))
+        w1=np.copy(w)
+        nn.layers_shape, nn.centers, nn.idx_layers, nn.v, nn.epoch, nn.cluster = ws.set_ws(c, w1)
+        NN.NN.update_layers = ws.ws_update_layers
+        NN.NN.updateMomentum = ws.ws_updateMomentum
+        nn.train(stop_function=0, num_epochs=60)
+        #nn.train(stop_function=1)
 
 '''
 print("train: "+str(tr))

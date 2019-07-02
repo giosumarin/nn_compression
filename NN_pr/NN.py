@@ -126,27 +126,49 @@ class NN:
                 self.layers[i][0] += deltasUpd[i][0] + momentumUpdate * self.v[i][0] 
                 self.layers[i][1] += deltasUpd[i][1] + momentumUpdate * self.v[i][1]
         self.v = deltasUpd
+        
+    def stop_fun(self, t=0, num_epochs=None, acc_epoch=None):
+        if t==0:
+            #numero epoche
+            if num_epochs > self.epoch:
+                return True
+            else:
+                return False
+        elif t==1:
+            if self.epoch <= 50 or acc_epoch - self.best_acc_test >= 0.01:
+                self.best_acc_test=acc_epoch
+                return True
+            else:
+                return False
+            
+            
+        
 
-    def train(self, num_epochs):
+    def train(self, stop_function, num_epochs=None):
         train = self.training[0]
         test = self.testing[0]
-        num_epochs = num_epochs
+        
+        self.best_acc_test = 0.
+        last_acc = 1.
+        
         if self.disableLog:
             log.logNN.disabled=True
+            
+        
 
         log.logNN.info("learning rate=" + str(self.lr) + " momentum update=" + str(self.mu) + " minibatch=" + str(self.minibatch))
-        while num_epochs > self.epoch:
+        while self.stop_fun(stop_function, num_epochs, last_acc):
             self.updateMomentum(train, self.targetForUpd, num_epochs, self.lr, self.mu)
 
             if self.epoch % 5 == 0:
                 log.logNN.debug("Accuracy - epoch " + str(self.epoch) + ":  Train=" + str(
                     self.accuracy(train, self.target_train)) + "- Test=" + str(self.accuracy(test, self.target_test)))
-
+            last_acc = self.accuracy(test, self.target_test)
             self.epoch += 1
 
         log.logNN.info("Train acc - epoch: " + str(self.epoch) + ":  " + str(self.accuracy(train, self.target_train)))
         log.logNN.info("Test acc - epoch:" + str(self.accuracy(test, self.target_test)))
-        log.logNN.debug("---------------------------------------------------------------------")
+        log.logNN.debug("-------------------------------------------------------------------------------")
         return self.accuracy(train, self.target_train), self.accuracy(test, self.target_test)
 
     def getWeigth(self):
