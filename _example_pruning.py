@@ -32,18 +32,23 @@ te=[]
 s=[]
 
 normal_upd = NN.NN.update_layers
-for n in [[20,10]]:
-    nn = NN.NN(training=TRAINING, testing=TESTING, lr=0.003, mu=.99, minibatch=100, dropout=0.75)
+for n in [[50,50]]:
+    nn = NN.NN(training=TRAINING, testing=TESTING, lr=0.003, mu=.99, minibatch=100)
     NN.NN.update_layers = normal_upd
     nn.addLayers(n, ['relu', 'relu'])
-    a,b=nn.train(num_epochs=50)
+    a,b=nn.train(stop_function=0, num_epochs=10)
     w = (nn.getWeigth())
     for p in [10,20,30,40]:
         print("Pruning="+str(p)+"%")
         w1=np.copy(w)
-        nn.layers, nn.mask, nn.v, nn.epoch = pr.set_pruned_layers(p, w1)
-        NN.NN.update_layers = pr.mask_update_layers
-        a,b=nn.train(num_epochs=10)
+        pr.set_pruned_layers(nn, p, w1)
+        nn.train(stop_function=0, num_epochs=10)
+
+
+
+
+
+
 
 '''
 print("train: "+str(tr))

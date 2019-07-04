@@ -28,27 +28,31 @@ def idx_matrix_to_matrix(idx_matrix,centers,shape):
 
 def centroid_gradient_matrix(idx_matrix,gradient,cluster):
     return scipy.ndimage.sum(gradient,idx_matrix,index=range(cluster))
+    #provare mean
     
-def set_ws(cluster, weights):
+def set_ws(nn, cluster, weights):
     layers_shape = []
     centers = []
     idx_layers = []
     v = []
+    
     if isinstance(cluster, int):
-        cluster_list =[]
-        for _ in range(len(weights)): 
-            cluster_list.append(cluster)
-        cluster = cluster_list
+        cluster = [cluster]*len(weights)
 
     for i in range(len(weights)):
         layers_shape.append(weights[i][0].shape)
         centers.append(build_clusters(cluster[i], weights[i][0]))
         idx_layers.append([redefine_weights(weights[i][0],centers[i]), weights[i][1]])  
-        v.append([0,0]) 
-    return layers_shape, centers, idx_layers, v, 0, cluster    
+        v.append([0,0])
+    NN.NN.update_layers = ws_update_layers
+    NN.NN.updateMomentum = ws_updateMomentum
     
-
-    
+    nn.layers_shape = layers_shape
+    nn.centers = centers
+    nn.idx_layers = idx_layers
+    nn.v = v
+    nn.epoch = 0
+    nn.cluster = cluster 
 
     
 def ws_update_layers(self, deltasUpd, momentumUpdate):

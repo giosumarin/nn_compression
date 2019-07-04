@@ -5,12 +5,11 @@ from NN_pr import NN
 from NN_pr import logger as log
 from NN_pr import activation_function as af
 
-def set_pruned_layers(pruning, weights):
+def set_pruned_layers(nn, pruning, weights):
     layers = weights
     num_layers = len(layers)
     mask = []
     v = []
-    epoch = 0
 	    
     for i in range(num_layers):
         W=layers[i][0]
@@ -19,7 +18,10 @@ def set_pruned_layers(pruning, weights):
         W_pruned = W * m
         layers[i][0] = W_pruned
         v.append([0, 0])
-    return layers, mask, v, epoch
+    nn.layers = layers
+    nn.mask = mask
+    nn.v = v
+    nn.epoch = 0
 
 def mask_update_layers(self, deltasUpd, momentumUpdate):
     for i in range(self.nHidden + 1):
