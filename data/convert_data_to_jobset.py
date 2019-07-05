@@ -12,7 +12,7 @@ from NN_pr import NN
 
 
 
-DATA_PATH = 'data/mnist/'
+DATA_PATH = 'mnist/'
 
 IMAGES_TRAIN = 'data_training'
 IMAGES_TEST = 'data_testing'
