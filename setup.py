@@ -1,6 +1,6 @@
 from setuptools import setup
 
-setup(name='funniest',
+setup(name='NN_pr',
       version='0.1',
       description='nn_compression',
       url='https://github.com/giosumarin/nn_compression',
