@@ -35,6 +35,7 @@ w1 = nn.getWeigth()
 
 dump(w1, "weight")
 '''
+'''
 w1=load("weight", mmap_mode='r')
 
 
@@ -69,8 +70,45 @@ for i in range(len(out)):
 
 print("Best conf for cluster {}".format(str(best)))
 
+#[[32768, 53.202], [4096, 52.901], [128, 54.258]]
+'''
 
+w1=load("weight", mmap_mode='w+')
+w=np.copy(w1[2][0])
 
+print(datetime.datetime.now())
+def silhouette(i):
+    ncl=i
+    if (w.shape[0]*w.shape[1] >= ncl):
+        cl = MiniBatchKMeans(n_clusters = ncl, random_state = 42, init_size = 3 * ncl)
+        X=np.hstack(w).reshape(-1,1)
+        cl_lb = cl.fit_predict(X)
+        index=round(silhouette_score(X, cl_lb)*100, 3)
+        print(i)
+        return [ncl,index]
+    else:
+        return [ncl,-1]    
+    
+    
+out = Parallel(n_jobs=-1)(delayed(silhouette)(k) for k in range(2,301,1))
+print(out)
+print(datetime.datetime.now())
+best=[0.,0.]
+for i in range(len(out)):
+    if out[i][1] > best[1]: 
+        best=[out[i][0], out[i][1]]
+        
+print("Best conf for cluster {}".format(str(best)))
+
+'''
+#28*28*300=235200  300*100=3000 100*10=1000
+nn = NN.NN(training=TRAINING, testing=TESTING, lr=0.003, mu=.99, minibatch=100, dropout=0.75)
+
+nn.addLayers([250,100], ['relu', 'relu'])
+nn.layers = w
+ws.set_ws(nn, [32768,4096,128], w)
+nn.train(stop_function=0, num_epochs=50) #98,31
+'''
 '''
 nn = NN.NN(training=TRAINING, testing=TESTING, lr=0.003, mu=.99, minibatch=100)
 nn.addLayers([50,50], ['relu', 'relu'])

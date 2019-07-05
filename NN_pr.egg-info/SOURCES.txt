@@ -1,0 +1,13 @@
+setup.py
+NN_pr/NN.py
+NN_pr/WS_module.py
+NN_pr/__init__.py
+NN_pr/activation_function.py
+NN_pr/logger.py
+NN_pr/pruning_module.py
+NN_pr/setup.py
+NN_pr.egg-info/PKG-INFO
+NN_pr.egg-info/SOURCES.txt
+NN_pr.egg-info/dependency_links.txt
+NN_pr.egg-info/not-zip-safe
+NN_pr.egg-info/top_level.txt

@@ -1,3 +1,14 @@
+
+
+
+
+
+Best conf for cluster [[32768, 53.202], [4096, 52.901], [128, 54.258]]
+
+
+
+
+
 2019-07-04 12:18:29,206 - INFO - neurons= [200, 60]
 2019-07-04 12:18:29,261 - INFO - learning rate=0.003 momentum update=0.99 minibatch=100
 2019-07-04 12:18:29,388 - INFO - neurons= [200, 80]
