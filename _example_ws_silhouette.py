@@ -3,7 +3,8 @@ import gzip
 import matplotlib.pyplot as plt
 import numpy as np
 import sys
-from joblib import Parallel, delayed, load
+import datetime
+from joblib import Parallel, delayed, load, dump
 from sklearn.metrics import silhouette_score
 from sklearn.cluster import MiniBatchKMeans
 
@@ -17,46 +18,58 @@ N_CLASSES = 10
 TRAINING=load("data/trainjoblib", mmap_mode='r')
 TESTING=load("data/testjoblib", mmap_mode='r')
 
-
+'''
 sil=[]
 normal_upd = NN.NN.update_layers
 normal_mom = NN.NN.updateMomentum
 #28*28*300=235200  300*100=3000 100*10=1000
 nn = NN.NN(training=TRAINING, testing=TESTING, lr=0.003, mu=.99, minibatch=100, dropout=0.75)
 NN.NN.update_layers = normal_upd
-nn.addLayers([25,10], ['relu', 'relu'])
+nn.addLayers([250,100], ['relu', 'relu'])
 #nn.train(stop_function=1)#, num_epochs=2)
-nn.train(stop_function=0, num_epochs=1)
+nn.train(stop_function=0, num_epochs=150)
 w1 = nn.getWeigth()
 
 #with open('pesi', 'wb') as f:
 #    pickle.dump(w1, f)
 
-best=[[0,0],[0,0],[0,0]]
+dump(w1, "weight")
+'''
+w1=load("weight", mmap_mode='r')
+
 
 def silhouette(i):
     w=np.copy(w1)
     ncl=2**i
     silinner=[]
     s=[]
+    silinner.append(ncl)
     for j in range(len(w)):
         if (w[j][0].shape[0]*w[j][0].shape[1] >= ncl):
             cl = MiniBatchKMeans(n_clusters = ncl, random_state = 42, init_size = 3 * ncl)
             X=np.hstack(w[j][0]).reshape(-1,1)
             cl_lb = cl.fit_predict(X)
             index=round(silhouette_score(X, cl_lb)*100, 3)
-            if index > best[j][0]:
-                best[j][0] = index
-                best[j][1] = ncl
             silinner.append(index)
         else:
-            silinner.append("Nope")    
-    sil.append([ncl, silinner])
-    print(sil) 
-    return sil
-    
-print(Parallel(n_jobs=-1)(delayed(silhouette)(k) for k in range(6,8,1)))
-print(best)
+            silinner.append(-1)    
+    #sil.append([ncl, silinner])
+    #print(sil) 
+    print(datetime.datetime.now())
+    return silinner
+out = Parallel(n_jobs=2)(delayed(silhouette)(k) for k in range(6,17,1))
+print(out)
+
+best=[[0.,0.],[0.,0.],[0.,0.]]
+for i in range(len(out)):
+    for j in range(3):
+        if out[i][j+1] > best[j][1]: 
+            best[j]=[out[i][0], out[i][j+1]]
+        
+
+print("Best conf for cluster {}".format(str(best)))
+
+
 
 '''
 nn = NN.NN(training=TRAINING, testing=TESTING, lr=0.003, mu=.99, minibatch=100)

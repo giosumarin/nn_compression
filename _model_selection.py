@@ -40,7 +40,7 @@ end = kf.get_n_splits(x)
 
 
 
-def mod_sel:    
+def mod_sel():    
     n1 = 20    
     n2 = 40
     while n2 <= 300:
