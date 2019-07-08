@@ -36,11 +36,13 @@ ft.close()
     #    wOld=pickle.load(f)
 
 nn = NN.NN(training=TRAINING, testing=TESTING, lr=0.003, mu=.99, minibatch=100)
-nn.addLayers([50,50], ['relu', 'relu'])
+nn.addLayers([50,25], ['relu', 'relu', 'tanh'])
 #nn.train(stop_function=1)
-nn.train(stop_function=0, num_epochs=10)
+nn.train(stop_function=0, num_epochs=200)
 w = (nn.getWeigth())
-w1=np.copy(w)
-ws.set_ws(nn, 30, w1)
-nn.train(stop_function=0, num_epochs=10)
+for i in  [[8192,256,32], 2, [2,2,1]]:#[[32768, 4096,128], [16384,2048, 64]]:
+    w1=np.copy(w)
+    ws.set_ws(nn, i, w1)
+    nn.train(stop_function=0, num_epochs=50)
+
 

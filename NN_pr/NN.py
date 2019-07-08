@@ -44,11 +44,19 @@ class NN:
         self.layers = []
         self.v = []
         self.act_fun = []
-        for i in range(self.nHidden):
+        for i in range(self.nHidden+1):
             if activation_fun[i] == 'relu':
                 self.act_fun.append(lambda x, der: af.ReLU(x, der))
-            else:
-                self.act_fun.append(lambda x, der: af.sigmoid(x, der)) 
+            elif activation_fun[i] == 'sigmoid':
+                self.act_fun.append(lambda x, der: af.sigmoid(x, der))
+            elif activation_fun[i] == 'linear':
+                self.act_fun.append(lambda x, der: af.linear(x, der))
+            elif activation_fun[i] == 'tanh':
+                self.act_fun.append(lambda x, der: af.tanh(x, der))
+            elif activation_fun[i] == 'leakyrelu':
+                self.act_fun.append(lambda x, der: af.LReLU(x, der))
+        
+        for i in range(self.nHidden):    
             n = neurons[i]
             Wh = np.random.randn(N_FEATURES if i == 0 else neurons[i - 1], n) * math.sqrt(2.0 / self.numEx)
             bWh = np.random.randn(1, n) * math.sqrt(2.0 / self.numEx)
@@ -56,12 +64,8 @@ class NN:
             self.v.append([0, 0])
         Wo = np.random.randn(neurons[-1], N_CLASSES) * math.sqrt(2.0 / self.numEx)
         bWo = np.random.randn(1, N_CLASSES) * math.sqrt(2.0 / self.numEx)
-        self.act_fun.append(lambda x, der: af.sigmoid(x, der))
         self.layers.append([Wo, bWo])
         self.v.append([0, 0])
-    
-    def set_output_id_fun(self):
-        self.act_fun[-1] = (lambda x, der: af.id(x, der))
         
 
     def predict(self, X):

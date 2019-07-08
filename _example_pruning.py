@@ -32,17 +32,80 @@ te=[]
 s=[]
 
 normal_upd = NN.NN.update_layers
-for n in [[50,50]]:
+'''
+for n in [[250,100]]:
     nn = NN.NN(training=TRAINING, testing=TESTING, lr=0.003, mu=.99, minibatch=100)
     NN.NN.update_layers = normal_upd
-    nn.addLayers(n, ['relu', 'relu'])
-    a,b=nn.train(stop_function=0, num_epochs=10)
+    nn.addLayers(n, ['relu', 'relu','tanh'])
+    a,b=nn.train(stop_function=0, num_epochs=150)
     w = (nn.getWeigth())
-    for p in [10,20,30,40]:
+    for p in [10,20]:
         print("Pruning="+str(p)+"%")
         w1=np.copy(w)
         pr.set_pruned_layers(nn, p, w1)
-        nn.train(stop_function=0, num_epochs=10)
+        nn.train(stop_function=0, num_epochs=50)'''
+        
+for n in [[250,100]]:
+    nn = NN.NN(training=TRAINING, testing=TESTING, lr=0.003, mu=.99, minibatch=100)
+    NN.NN.update_layers = normal_upd
+    nn.addLayers(n, ['leakyrelu', 'leakyrelu','sigmoid'])
+    a,b=nn.train(stop_function=0, num_epochs=150)
+    w = (nn.getWeigth())
+    for p in [10,20]:
+        print("Pruning="+str(p)+"%")
+        w1=np.copy(w)
+        pr.set_pruned_layers(nn, p, w1)
+        nn.train(stop_function=0, num_epochs=50)
+        
+for n in [[250,100]]:
+    nn = NN.NN(training=TRAINING, testing=TESTING, lr=0.003, mu=.99, minibatch=100)
+    NN.NN.update_layers = normal_upd
+    nn.addLayers(n, ['leakyrelu', 'leakyrelu','tanh'])
+    a,b=nn.train(stop_function=0, num_epochs=150)
+    w = (nn.getWeigth())
+    for p in [10,20]:
+        print("Pruning="+str(p)+"%")
+        w1=np.copy(w)
+        pr.set_pruned_layers(nn, p, w1)
+        nn.train(stop_function=0, num_epochs=50)
+        
+print("#"*30)    
+    
+for n in [[250,100]]:
+    nn = NN.NN(training=TRAINING, testing=TESTING, lr=0.003, mu=.99, minibatch=100, dropout=0.75)
+    NN.NN.update_layers = normal_upd
+    nn.addLayers(n, ['relu', 'relu','tanh'])
+    a,b=nn.train(stop_function=0, num_epochs=150)
+    w = (nn.getWeigth())
+    for p in [10,20]:
+        print("Pruning="+str(p)+"%")
+        w1=np.copy(w)
+        pr.set_pruned_layers(nn, p, w1)
+        nn.train(stop_function=0, num_epochs=50)
+        
+for n in [[250,100]]:
+    nn = NN.NN(training=TRAINING, testing=TESTING, lr=0.003, mu=.99, minibatch=100, dropout=0.75)
+    NN.NN.update_layers = normal_upd
+    nn.addLayers(n, ['leakyrelu', 'leakyrelu','sigmoid'])
+    a,b=nn.train(stop_function=0, num_epochs=150)
+    w = (nn.getWeigth())
+    for p in [10,20]:
+        print("Pruning="+str(p)+"%")
+        w1=np.copy(w)
+        pr.set_pruned_layers(nn, p, w1)
+        nn.train(stop_function=0, num_epochs=50)
+        
+for n in [[250,100]]:
+    nn = NN.NN(training=TRAINING, testing=TESTING, lr=0.003, mu=.99, minibatch=100, dropout=0.75)
+    NN.NN.update_layers = normal_upd
+    nn.addLayers(n, ['leakyrelu', 'leakyrelu','tanh'])
+    a,b=nn.train(stop_function=0, num_epochs=150)
+    w = (nn.getWeigth())
+    for p in [10,20]:
+        print("Pruning="+str(p)+"%")
+        w1=np.copy(w)
+        pr.set_pruned_layers(nn, p, w1)
+        nn.train(stop_function=0, num_epochs=50)
 
 
 
